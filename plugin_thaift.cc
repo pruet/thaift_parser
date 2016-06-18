@@ -280,7 +280,7 @@ static int thai_parser_parse(MYSQL_FTPARSER_PARAM *param)
   MYSQL_FTPARSER_BOOLEAN_INFO	bool_info =
   { FT_TOKEN_WORD, 0, 0, 0, 0, 0, ' ', 0};
   // split string into token, we need this to detect Thai/English 
-  while (fts_get_word(param->cs, start, end, &word, &bool_info)) {
+  while (*start < end && fts_get_word(param->cs, start, end, &word, &bool_info)) {
     if (FT_TOKEN_WORD == bool_info.type) {
       ret= thai_parse(param, (char *) word.pos, word.len, &bool_info);
       //FIXME it possible that only partial of param->doc will be
