@@ -10,9 +10,9 @@
 
 ## ติดตั้งไบนารี่
 
-ดาวน์โหลดได้จาก  https://github.com/pruet/thaift_parser/master/binary/ จะคอมไพล์มาสำหรับ x86_64 บน Ubunt/Debian แต่เดาว่าคงใช้กับ Linux ตัวอื่น ๆ ได้
+ดาวน์โหลดได้จา https://github.com/pruet/thaift_parser/tree/master/binary/  จะคอมไพล์มาสำหรับ x86_64 บน Ubunt/Debian แต่เดาว่าคงใช้กับ Linux ตัวอื่น ๆ ได้
 
-วิธีการติดตั้งคือ เอาไปใส่ใน PLUGIN_DIR ของ MySQL/MariaDB เสร็จแล้วอาจจะต้องแก้ File Permission/ACL/SELinux/AppArmor เพื่อให้ MySQL/MariaDB สามารถเข้าไปใช้งานได้
+วิธีการติดตั้งคือ หลังจากดาวน์โหลดมาแล้ว ก็เปลี่ยนชื่อเป็น libpluginthaift.so  เอาไปใส่ใน PLUGIN_DIR ของ MySQL/MariaDB เสร็จแล้วอาจจะต้องแก้ File Permission/ACL/SELinux/AppArmor เพื่อให้ MySQL/MariaDB สามารถเข้าไปใช้งานได้
 
 ต้องมี libthai/libthai-data ติดตั้งอยู่ในเครื่องถึงจะทำงานได้
 
