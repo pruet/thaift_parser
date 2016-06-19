@@ -41,6 +41,7 @@ install plugin thaift_parser soname 'libpluginthaift.so'
 * มี Performance Penalty จากการ insert และ select เพราะต้องมีการตัดคำทุกครั้ง
 * บน MySQL 5.7 ใช้ได้กับทั้ง InnoDB และ MyISAM แต่ว่ายังไม่ได้ทดสอบหนัก ๆ กับ MyISAM
 * บน MariaDB ยังไม่ได้ทดลอง แต่ว่ามันจะใช้ได้กับ MyISAM เท่านั้น เพราะ InnoDB5.6 ที่อยู่ใน MariaDB ปัจจุบัน ยังไม่สนับสนุน Custom full-text plugin ต้องรอ InnoDB5.7 ที่(ว่ากันว่า)[https://jira.mariadb.org/browse/MDEV-9330]จะอยู่ใน MariaDB 10.2
+* เนื่องจากมี Bug บนระบบ Fulltext search ของ MySQL ดังนั้นจึงไม่สามารถใช้ข้อความที่มี "..." (Double Quote) อยู่ภายในได้ อาจจะทำให้เกิด Memory leak ได้
 
 ## การพัฒนา
 * ได้โปรด Pull Request มา ถ้าท่านได้ปรับปรุงโค้ดแล้ว รวมถึง Test-cases ต่าง ๆ ด้วย
