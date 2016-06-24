@@ -175,7 +175,8 @@ static int add_word(MYSQL_FTPARSER_PARAM *param, const char *word,
     thai_parser_parse()
       param              parsing context
       str                a chunk
-
+      length             length of the chunk
+      bool_info          struct for boolean mode
 
   DESCRIPTION
     This function process a single word before sending to the

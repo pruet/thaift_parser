@@ -29,7 +29,7 @@ DROP TABLE IF EXISTS t;
 CREATE TABLE t (id INT, c VARCHAR(255), FULLTEXT (c) WITH PARSER thaift_parser) ENGINE=InnoDB CHARACTER SET utf8 COLLATE utf8_unicode_ci;
 
 insert into t(id, c) values(1, 'ละอกุศลวิตก'), (2, 'ละกามวิตก'), (3, 'ซึ่งวิหิงสาวิตก');
-select id as 'l1 expect 2' from t where match c against ('ละ -อกุศลวิตก' in boolean mode); #expect 2
+select id as '' from t where match c against ('ละ -อกุศลวิตก' in boolean mode); #expect empty
 select id as 'l2 expect 1' from t where match c against ('+อกุศลวิตก' in boolean mode); #expect 1
-select id as 'l3 expect 1' from t where match c against ('อกุศลวิตก' in boolean mode); #expect 1
+select id as 'l3 expect 1,2,3' from t where match c against ('อกุศลวิตก' in boolean mode); #expect 1,2,3
 select id as 'l4 expect 3' from t where match c against ('+วิหิงสา +ซึ่ง' in boolean mode); #expect 3
