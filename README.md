@@ -8,9 +8,9 @@
 
 แต่ตอนนี้เรามีแล้วคือ (libthai)[https://github.com/tlwg/libthai] ของ TLWG จึงเป็นโอกาสอันดีที่จะลองทำ
 
-## ติดตั้งไบนารี่
+## ติดตั้งไบนารี
 
-ดาวน์โหลดได้จา https://github.com/pruet/thaift_parser/tree/master/binary/  จะคอมไพล์มาสำหรับ x86_64 บน Ubunt/Debian แต่เดาว่าคงใช้กับ Linux ตัวอื่น ๆ ได้
+ดาวน์โหลดได้จาก https://github.com/pruet/thaift_parser/tree/master/binary/  จะคอมไพล์มาสำหรับ x86_64 บน Ubunt/Debian แต่เดาว่าคงใช้กับ Linux ตัวอื่น ๆ ได้
 
 วิธีการติดตั้งคือ หลังจากดาวน์โหลดมาแล้ว ก็เปลี่ยนชื่อเป็น libpluginthaift.so  เอาไปใส่ใน PLUGIN_DIR ของ MySQL เสร็จแล้วอาจจะต้องแก้ File Permission/ACL/SELinux/AppArmor เพื่อให้ MySQL สามารถเข้าไปใช้งานได้
 
@@ -41,7 +41,6 @@ install plugin thaift_parser soname 'libpluginthaift.so'
 * มี Performance Penalty จากการ insert และ select เพราะต้องมีการตัดคำทุกครั้ง
 * บน MySQL 5.7 ใช้ได้กับทั้ง InnoDB และ MyISAM แต่ว่ายังไม่ได้ทดสอบหนัก ๆ กับ MyISAM
 * บน MariaDB ยังไม่ได้ทดลอง แต่ว่ามันจะใช้ได้กับ MyISAM เท่านั้น เพราะ InnoDB5.6 ที่อยู่ใน MariaDB ปัจจุบัน ยังไม่สนับสนุน Custom full-text plugin ต้องรอ InnoDB5.7 ที่(ว่ากันว่า)[https://jira.mariadb.org/browse/MDEV-9330]จะอยู่ใน MariaDB 10.2
-* เนื่องจากมี Bug บนระบบ Fulltext search ของ MySQL ดังนั้นจึงไม่สามารถใช้ข้อความที่มี "..." (Double Quote) อยู่ภายในได้ อาจจะทำให้เกิด Memory leak ได้
 
 ## การพัฒนา
 * ได้โปรด Pull Request มา ถ้าท่านได้ปรับปรุงโค้ดแล้ว รวมถึง Test-cases ต่าง ๆ ด้วย
