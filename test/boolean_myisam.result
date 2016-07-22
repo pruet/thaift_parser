@@ -1,0 +1,32 @@
+
+simple test (s1-s8)
+s1 expect 1,3
+1
+3
+s2 expect 1,2
+1
+2
+s3 epxect 1
+1
+s4 expect 1
+1
+s5 expect 1,3
+1
+3
+s6 expect 1,3
+1
+3
+s7 expect 2
+2
+s8 expect 2
+2
+
+long test (l1-l4)
+l2 expect 1
+1
+l3 expect 1,2,3
+1
+2
+3
+l4 expect 3
+3
