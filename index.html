@@ -1,0 +1,103 @@
+<!doctype html>
+<html>
+  <head>
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="chrome=1">
+    <title>Thaift parser by pruet</title>
+
+    <link rel="stylesheet" href="stylesheets/styles.css">
+    <link rel="stylesheet" href="stylesheets/github-light.css">
+    <meta name="viewport" content="width=device-width">
+    <!--[if lt IE 9]>
+    <script src="//html5shiv.googlecode.com/svn/trunk/html5.js"></script>
+    <![endif]-->
+  </head>
+  <body>
+    <div class="wrapper">
+      <header>
+        <h1>Thaift parser</h1>
+        <p>Thai Fulltext Plugin for MySQL/MariaDB</p>
+
+        <p class="view"><a href="https://github.com/pruet/thaift_parser">View the Project on GitHub <small>pruet/thaift_parser</small></a></p>
+
+
+        <ul>
+          <li><a href="https://github.com/pruet/thaift_parser/zipball/master">Download <strong>ZIP File</strong></a></li>
+          <li><a href="https://github.com/pruet/thaift_parser/tarball/master">Download <strong>TAR Ball</strong></a></li>
+          <li><a href="https://github.com/pruet/thaift_parser">View On <strong>GitHub</strong></a></li>
+        </ul>
+      </header>
+      <section>
+        <h1>
+<a id="this-is-in-pocpre-alpha-stage-not-for-production" class="anchor" href="#this-is-in-pocpre-alpha-stage-not-for-production" aria-hidden="true"><span aria-hidden="true" class="octicon octicon-link"></span></a><strong>This is in PoC/Pre-Alpha stage, not for production</strong>
+</h1>
+
+<h1>
+<a id="thai-fulltext-plugin-for-mysqlmariadb" class="anchor" href="#thai-fulltext-plugin-for-mysqlmariadb" aria-hidden="true"><span aria-hidden="true" class="octicon octicon-link"></span></a>Thai Fulltext Plugin for MySQL/MariaDB</h1>
+
+<h2>
+<a id="แนะนำ" class="anchor" href="#%E0%B9%81%E0%B8%99%E0%B8%B0%E0%B8%99%E0%B8%B3" aria-hidden="true"><span aria-hidden="true" class="octicon octicon-link"></span></a>แนะนำ</h2>
+
+<p>อ้างถึง <a href="http://th.lug.wikia.com/wiki/Tlwg_todo_list">http://th.lug.wikia.com/wiki/Tlwg_todo_list</a>, <a href="http://th.lug.wikia.com/wiki/Tlwg_todo_list">http://th.lug.wikia.com/wiki/Tlwg_todo_list</a>, <a href="https://bact.cc/2008/mysql-thai-full-text-parser-plug-in-idea/">https://bact.cc/2008/mysql-thai-full-text-parser-plug-in-idea/</a>  มีความต้องการ Full Text Search  Engine บน MySQL/MariaDB แต่ว่าภาษาไทยต้องการการตัดคำและในขณะนั้น (เกือบ 10 ปีที่แล้ว) ระบบการตัดคำภาษาไทยยังไม่มีมาตรฐาน</p>
+
+<p>แต่ตอนนี้เรามีแล้วคือ (libthai)[<a href="https://github.com/tlwg/libthai">https://github.com/tlwg/libthai</a>] ของ TLWG จึงเป็นโอกาสอันดีที่จะลองทำ</p>
+
+<h2>
+<a id="ติดตั้งไบนารี่" class="anchor" href="#%E0%B8%95%E0%B8%B4%E0%B8%94%E0%B8%95%E0%B8%B1%E0%B9%89%E0%B8%87%E0%B9%84%E0%B8%9A%E0%B8%99%E0%B8%B2%E0%B8%A3%E0%B8%B5%E0%B9%88" aria-hidden="true"><span aria-hidden="true" class="octicon octicon-link"></span></a>ติดตั้งไบนารี่</h2>
+
+<p>ดาวน์โหลดได้จาก <a href="https://github.com/pruet/thaift_parser/tree/master/binary/">https://github.com/pruet/thaift_parser/tree/master/binary/</a>  จะคอมไพล์มาสำหรับ x86_64 บน Ubunt/Debian แต่เดาว่าคงใช้กับ Linux ตัวอื่น ๆ ได้</p>
+
+<p>วิธีการติดตั้งคือ หลังจากดาวน์โหลดมาแล้ว ก็เปลี่ยนชื่อเป็น libpluginthaift.so  เอาไปใส่ใน PLUGIN_DIR ของ MySQL เสร็จแล้วอาจจะต้องแก้ File Permission/ACL/SELinux/AppArmor เพื่อให้ MySQL สามารถเข้าไปใช้งานได้</p>
+
+<p>ต้องมี libthai/libthai-data ติดตั้งอยู่ในเครื่องถึงจะทำงานได้</p>
+
+<h2>
+<a id="คอมไพล์จาก-source-code" class="anchor" href="#%E0%B8%84%E0%B8%AD%E0%B8%A1%E0%B9%84%E0%B8%9E%E0%B8%A5%E0%B9%8C%E0%B8%88%E0%B8%B2%E0%B8%81-source-code" aria-hidden="true"><span aria-hidden="true" class="octicon octicon-link"></span></a>คอมไพล์จาก Source code</h2>
+
+<p>ต้องมี Source code ของ MySQL 5.7 และควรจะ clone ลงไปยังdirection MYSQL_SOURCE/plugin/fulltext/ แล้วทำการแก้ไขไฟล์ CMakeLists.txt โดยเพิ่มสามบรรทัดนี้เข้าไปเพื่อให้สามารถคอมไพล์ไปพร้อม ๆ กับ MySQL</p>
+
+<pre><code>MYSQL_ADD_PLUGIN(thaift_parser ./thaift_parser/plugin_thaift.cc
+                MODULE_ONLY MODULE_OUTPUT_NAME "libpluginthaift")
+TARGET_LINK_LIBRARIES(thaift_parser "thai")
+</code></pre>
+
+<h2>
+<a id="ตั้งค่าใช้งาน" class="anchor" href="#%E0%B8%95%E0%B8%B1%E0%B9%89%E0%B8%87%E0%B8%84%E0%B9%88%E0%B8%B2%E0%B9%83%E0%B8%8A%E0%B9%89%E0%B8%87%E0%B8%B2%E0%B8%99" aria-hidden="true"><span aria-hidden="true" class="octicon octicon-link"></span></a>ตั้งค่า/ใช้งาน</h2>
+
+<p>กรุณาอ่าน <a href="http://dev.mysql.com/doc/refman/5.7/en/fulltext-fine-tuning.html">http://dev.mysql.com/doc/refman/5.7/en/fulltext-fine-tuning.html</a> และ <a href="http://dev.mysql.com/doc/refman/5.7/en/fulltext-fine-tuning.html">http://dev.mysql.com/doc/refman/5.7/en/fulltext-fine-tuning.html</a></p>
+
+<p>ก่อนใช้งาน ต้องโหลดปลั๊กอินก่อน โดยต่อเข้าไปยัง MySQL โดยใช้ client เช่น mysql แล้ว query ด้วย</p>
+
+<pre><code>install plugin thaift_parser soname 'libpluginthaift.so'
+</code></pre>
+
+<p>ทำครั้งเดียวพอ วันหลังมันจะโหลดให้เอง การใช้งาน ลองไปดูตัวอย่างที่ (post นี้) [<a href="https://medium.com/@vsatayamas/full-text-search-%E0%B8%A0%E0%B8%B2%E0%B8%A9%E0%B8%B2%E0%B9%84%E0%B8%97%E0%B8%A2-%E0%B9%83%E0%B8%99-mysql-ad90940c4234#.4ofqmwxpz">https://medium.com/@vsatayamas/full-text-search-%E0%B8%A0%E0%B8%B2%E0%B8%A9%E0%B8%B2%E0%B9%84%E0%B8%97%E0%B8%A2-%E0%B9%83%E0%B8%99-mysql-ad90940c4234#.4ofqmwxpz</a>]</p>
+
+<h2>
+<a id="ข้อจำกัดการใช้งาน" class="anchor" href="#%E0%B8%82%E0%B9%89%E0%B8%AD%E0%B8%88%E0%B8%B3%E0%B8%81%E0%B8%B1%E0%B8%94%E0%B8%81%E0%B8%B2%E0%B8%A3%E0%B9%83%E0%B8%8A%E0%B9%89%E0%B8%87%E0%B8%B2%E0%B8%99" aria-hidden="true"><span aria-hidden="true" class="octicon octicon-link"></span></a>ข้อจำกัดการใช้งาน</h2>
+
+<ul>
+<li>มี Performance Penalty จากการ insert และ select เพราะต้องมีการตัดคำทุกครั้ง</li>
+<li>บน MySQL 5.7 ใช้ได้กับทั้ง InnoDB และ MyISAM แต่ว่ายังไม่ได้ทดสอบหนัก ๆ กับ MyISAM</li>
+<li>บน MariaDB ยังไม่ได้ทดลอง แต่ว่ามันจะใช้ได้กับ MyISAM เท่านั้น เพราะ InnoDB5.6 ที่อยู่ใน MariaDB ปัจจุบัน ยังไม่สนับสนุน Custom full-text plugin ต้องรอ InnoDB5.7 ที่(ว่ากันว่า)[<a href="https://jira.mariadb.org/browse/MDEV-9330%5D%E0%B8%88%E0%B8%B0%E0%B8%AD%E0%B8%A2%E0%B8%B9%E0%B9%88%E0%B9%83%E0%B8%99">https://jira.mariadb.org/browse/MDEV-9330]จะอยู่ใน</a> MariaDB 10.2</li>
+<li>เนื่องจากมี Bug บนระบบ Fulltext search ของ MySQL ดังนั้นจึงไม่สามารถใช้ข้อความที่มี "..." (Double Quote) อยู่ภายในได้ อาจจะทำให้เกิด Memory leak ได้</li>
+</ul>
+
+<h2>
+<a id="การพัฒนา" class="anchor" href="#%E0%B8%81%E0%B8%B2%E0%B8%A3%E0%B8%9E%E0%B8%B1%E0%B8%92%E0%B8%99%E0%B8%B2" aria-hidden="true"><span aria-hidden="true" class="octicon octicon-link"></span></a>การพัฒนา</h2>
+
+<ul>
+<li>ได้โปรด Pull Request มา ถ้าท่านได้ปรับปรุงโค้ดแล้ว รวมถึง Test-cases ต่าง ๆ ด้วย</li>
+<li>การทำงานบางอย่าง โดยเฉพาะใน Binary search กำลังอยู่ระหว่างการพูดคุยว่าจะให้ออกมาอย่างไร ถ้าสนใจ ลองเข้าไปที่ <a href="https://www.facebook.com/veer66/posts/10153549226592595">https://www.facebook.com/veer66/posts/10153549226592595</a>
+</li>
+</ul>
+      </section>
+      <footer>
+        <p>This project is maintained by <a href="https://github.com/pruet">pruet</a></p>
+        <p><small>Hosted on GitHub Pages &mdash; Theme by <a href="https://github.com/orderedlist">orderedlist</a></small></p>
+      </footer>
+    </div>
+    <script src="javascripts/scale.fix.js"></script>
+    
+  </body>
+</html>
