@@ -18,7 +18,7 @@
 
 ## คอมไพล์จาก Source code
 
-ต้องมี Source code ของ MySQL 5.7 และควรจะ clone ลงไปยัง direction MYSQL_SOURCE/plugin/fulltext/ แล้วทำการแก้ไขไฟล์ CMakeLists.txt โดยเพิ่มสามบรรทัดนี้เข้าไปเพื่อให้สามารถคอมไพล์ไปพร้อม ๆ กับ MySQL
+ต้องมี Source code ของ MySQL 5.7 และควรจะ clone git นี้ลงไปยัง directory MYSQL_SOURCE/plugin/fulltext/ แล้วทำการแก้ไขไฟล์ CMakeLists.txt ใน Source code MySQL โดยเพิ่มสามบรรทัดนี้เข้าไปเพื่อให้สามารถคอมไพล์ไปพร้อม ๆ กับ MySQL
 
 ```
 MYSQL_ADD_PLUGIN(thaift_parser ./thaift_parser/plugin_thaift.cc
